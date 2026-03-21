@@ -6,7 +6,7 @@ const books = [
         author: "J.R.R. Tolkien",
         category: "ficção",
         description: "Uma aventura épica de um hobbit chamado Bilbo Bolseiro que se vê envolvido em uma jornada inesperada com anões e um mago.",
-        image: "https://via.placeholder.com/200x300?text=O+Hobbit",
+        image: "./modules/img/O_hobbit.jpg",
         rating: "4.8/5"
     },
     {
@@ -15,7 +15,7 @@ const books = [
         author: "Robert C. Martin",
         category: "técnico",
         description: "Um guia prático para escrever código limpo, legível e mantível. Essencial para desenvolvedores profissionais.",
-        image: "https://via.placeholder.com/200x300?text=Clean+Code",
+        image: "./modules/img/Clean Code.jpg",
         rating: "4.7/5"
     },
     {
@@ -24,7 +24,7 @@ const books = [
         author: "George Orwell",
         category: "ficção",
         description: "Um romance distópico que retrata um futuro totalitário onde o governo controla todos os aspectos da vida.",
-        image: "https://via.placeholder.com/200x300?text=1984",
+        image: "./modules/img/1984.jpg",
         rating: "4.6/5"
     },
     {
@@ -33,7 +33,7 @@ const books = [
         author: "Simon Schama",
         category: "história",
         description: "Uma análise profunda e envolvente dos eventos que transformaram a França e o mundo no século XVIII.",
-        image: "https://via.placeholder.com/200x300?text=Revolucao+Francesa",
+        image: "./modules/img/A revolução francesa.jpg",
         rating: "4.5/5"
     },
     {
@@ -42,7 +42,7 @@ const books = [
         author: "David Flanagan",
         category: "técnico",
         description: "A referência mais completa sobre JavaScript, cobrindo desde o básico até conceitos avançados.",
-        image: "https://via.placeholder.com/200x300?text=JavaScript",
+        image: "./modules/img/JS o guia definitivo.jpg",
         rating: "4.7/5"
     },
     {
@@ -51,7 +51,7 @@ const books = [
         author: "Isaac Asimov",
         category: "ficção",
         description: "Uma épica de ficção científica que segue a queda e reconstrução de uma galáxia inteira.",
-        image: "https://via.placeholder.com/200x300?text=Fundacao",
+        image: "./modules/img/Fundação.jpg",
         rating: "4.8/5"
     },
     {
@@ -60,7 +60,7 @@ const books = [
         author: "Yuval Noah Harari",
         category: "história",
         description: "Uma perspectiva inovadora sobre como a humanidade evoluiu de primatas para criar civilizações complexas.",
-        image: "https://via.placeholder.com/200x300?text=Historia+Humanidade",
+        image: "./modules/img/A história da humanidade_.jpg",
         rating: "4.6/5"
     },
     {
@@ -69,7 +69,7 @@ const books = [
         author: "Wes McKinney",
         category: "técnico",
         description: "Aprenda a usar Python e suas bibliotecas para análise e manipulação de dados em larga escala.",
-        image: "https://via.placeholder.com/200x300?text=Python+Dados",
+        image: "./modules/img/Python para analise.jpg",
         rating: "4.5/5"
     },
     {
@@ -78,7 +78,7 @@ const books = [
         author: "J.R.R. Tolkien",
         category: "ficção",
         description: "A sequência épica de O Hobbit, seguindo a jornada de Frodo para destruir o Anel Único.",
-        image: "https://via.placeholder.com/200x300?text=Senhor+Aneis",
+        image: "./modules/img/O senhor dos aneus.jpg",
         rating: "4.9/5"
     },
     {
@@ -87,7 +87,7 @@ const books = [
         author: "Gang of Four",
         category: "técnico",
         description: "Os padrões de design fundamentais que todo desenvolvedor deve conhecer para escrever código melhor.",
-        image: "https://via.placeholder.com/200x300?text=Design+Patterns",
+        image: "./modules/img/Design Patterns.jpg",
         rating: "4.6/5"
     },
     {
@@ -96,7 +96,7 @@ const books = [
         author: "Frank Herbert",
         category: "ficção",
         description: "Uma obra-prima de ficção científica que explora política, religião e ecologia em um universo distante.",
-        image: "https://via.placeholder.com/200x300?text=Duna",
+        image: "./modules/img/Duna.jpg",
         rating: "4.7/5"
     },
     {
@@ -105,7 +105,7 @@ const books = [
         author: "Edward Gibbon",
         category: "história",
         description: "Uma análise clássica sobre os fatores que levaram ao colapso do Império Romano Ocidental.",
-        image: "https://via.placeholder.com/200x300?text=Imperio+Romano",
+        image: "./modules/img/a queda do imperio romano.jpg",
         rating: "4.4/5"
     }
 ];
@@ -133,7 +133,7 @@ function renderBooks(booksToRender = filteredBooks) {
                 <h3 class="book-title">${book.title}</h3>
                 <p class="book-author">por ${book.author}</p>
                 <span class="book-category">${book.category}</span>
-                <p class="book-rating">⭐ ${book.rating}</p>
+                <p class="book-rating"> ${book.rating}</p>
             </div>
         `;
         
@@ -178,7 +178,7 @@ function openModal(book) {
     document.getElementById('modalAuthor').textContent = `Autor: ${book.author}`;
     document.getElementById('modalCategory').textContent = `Categoria: ${book.category}`;
     document.getElementById('modalDescription').textContent = book.description;
-    document.getElementById('modalRating').textContent = `⭐ ${book.rating}`;
+    document.getElementById('modalRating').textContent = ` ${book.rating}`;
     
     modal.classList.add('active');
 }
