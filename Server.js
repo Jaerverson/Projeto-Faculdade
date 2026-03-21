@@ -7,22 +7,18 @@ const PORT = 3000;
 
 app.use(express.static('Front/src'));
 
-app.listen(3000, () => {
-    console.log(`Server is running on http://localhost:${3000}`);
-});
-
 app.get('/users', (req, res) => {
 
     res.send('oK, DEU CERTO');
+
 });
 
 
 
 
-const books = [];
 
-app.post('/books', (req, res) => {
-    console.log(req);
+app.get('/books', (req, res) => {
+    console.log("teste");
     
     
 //   {
@@ -33,4 +29,17 @@ app.post('/books', (req, res) => {
 //     }
 
 
+});
+
+
+
+
+
+
+
+
+
+
+app.listen(3000, () => {
+    console.log(`Server is running on http://localhost:${3000}`);
 });
