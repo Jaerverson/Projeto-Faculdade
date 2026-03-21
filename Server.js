@@ -1,4 +1,34 @@
 import express from 'express';
+import sql from 'mssql';
+
+const config = {
+    user: 'livros',
+    password: 'senha123',
+    server: 'localhost',
+    database: 'bancoDeLivros',
+    options: {
+        encrypt: false, // true se for Azure
+        trustServerCertificate: true
+    }
+};
+
+export async function connectDB() {
+    try {
+        await sql.connect(config);
+        console.log('Conectado ao SQL Server');
+    } catch (err) {
+        console.error('Erro ao conectar:', err);
+    }
+}
+
+
+
+
+
+
+
+
+
 
 
 const app = express();  
