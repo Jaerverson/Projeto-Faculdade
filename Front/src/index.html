@@ -1,66 +1,79 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Biblioteca Online</title>
-    <link rel="stylesheet" href="Modules/styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="Modules/styles.css" />
+  </head>
+  <body>
     <!-- Header -->
     <header class="header">
-        <div class="container">
-            <h1 class="logo">Biblioteca Online</h1>
-            <nav class="nav">
-                <button class="nav-btn active" data-filter="todos">Todos</button>
-                <button class="nav-btn" data-filter="ficção">Ficção</button>
-                <button class="nav-btn" data-filter="técnico">Técnico</button>
-                <button class="nav-btn" data-filter="história">História</button>
-            </nav>
-        </div>
+      <div class="container">
+        <h1 class="logo">Biblioteca Online</h1>
+        <nav class="nav">
+          <button class="nav-btn active" data-filter="todos">Todos</button>
+          <button class="nav-btn" data-filter="ficção">Ficção</button>
+          <button class="nav-btn" data-filter="técnico">Técnico</button>
+          <button class="nav-btn" data-filter="história">História</button>
+        </nav>
+      </div>
     </header>
 
     <!-- Search Section -->
     <section class="search-section">
-        <div class="container">
-            <input 
-                type="text" 
-                id="searchInput" 
-                class="search-input" 
-                placeholder="Buscar por título ou autor..."
-            >
-        </div>
+      <div class="container">
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="Buscar por título ou autor..."
+        />
+      </div>
     </section>
 
     <!-- Books Grid -->
     <main class="main">
-        <div class="container">
-            <div class="books-grid" id="booksGrid">
-                <!-- Livros inseridos aqui pelo JavaScript -->
-            </div>
+      <div class="container">
+        <div class="books-grid" id="booksGrid">
+          <!-- Livros inseridos aqui pelo JavaScript -->
         </div>
+      </div>
     </main>
 
     <!-- Modal para detalhes do livro -->
     <div id="bookModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="modal-body">
-                <img id="modalImage" src="" alt="Capa do livro" class="modal-image">
-                <div class="modal-info">
-                    <h2 id="modalTitle"></h2>
-                    <p id="modalAuthor"></p>
-                    <p id="modalCategory"></p>
-                    <p id="modalDescription"></p>
-                    <div class="modal-rating">
-                        <span id="modalRating"></span>
-                    </div>
-                    <button class="btn-primary">Ler Agora</button>
-                </div>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-body">
+          <img id="modalImage" src="" alt="Capa do livro" class="modal-image" />
+          <div class="modal-info">
+            <h2 id="modalTitle"></h2>
+            <p id="modalAuthor"></p>
+            <p id="modalCategory"></p>
+            <p id="modalDescription"></p>
+            <div class="modal-rating">
+              <span id="modalRating"></span>
             </div>
+            <button class="btn-primary">Ler Agora</button>
+          </div>
         </div>
+      </div>
     </div>
-
+    <footer
+      style="
+        background-color: #1a1f3a;
+        color: #a0a0a0;
+        text-align: center;
+        padding: 15px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        border-top: 1px solid #333;
+      "
+    >
+      <p style="margin: 5px 0">© 2026 Todos os direitos reservados.</p>
+      <p style="margin: 5px 0">Desenvolvido por Jaerverson & Wilany</p>
+    </footer>
     <script src="scripts/script.js"></script>
-</body>
+  </body>
 </html>
