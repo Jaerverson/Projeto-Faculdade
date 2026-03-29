@@ -6,7 +6,7 @@ const books = [
         author: "J.R.R. Tolkien",
         category: "ficção",
         description: "Uma aventura épica de um hobbit chamado Bilbo Bolseiro que se vê envolvido em uma jornada inesperada com anões e um mago.",
-        image: "./modules/img/O_hobbit.jpg",
+        image: "../Assets/img/O_hobbit.jpg",
         rating: "4.8/5"
     },
     {
@@ -15,7 +15,7 @@ const books = [
         author: "Robert C. Martin",
         category: "técnico",
         description: "Um guia prático para escrever código limpo, legível e mantível. Essencial para desenvolvedores profissionais.",
-        image: "./modules/img/Clean Code.jpg",
+        image: "../Assets/img/Clean Code.jpg",
         rating: "4.7/5"
     },
     {
@@ -24,7 +24,7 @@ const books = [
         author: "George Orwell",
         category: "ficção",
         description: "Um romance distópico que retrata um futuro totalitário onde o governo controla todos os aspectos da vida.",
-        image: "./modules/img/1984.jpg",
+        image: "../Assets/img/1984.jpg",
         rating: "4.6/5"
     },
     {
@@ -33,7 +33,7 @@ const books = [
         author: "Simon Schama",
         category: "história",
         description: "Uma análise profunda e envolvente dos eventos que transformaram a França e o mundo no século XVIII.",
-        image: "./modules/img/A revolução francesa.jpg",
+        image: "../Assets/img/A revolução francesa.jpg",
         rating: "4.5/5"
     },
     {
@@ -42,7 +42,7 @@ const books = [
         author: "David Flanagan",
         category: "técnico",
         description: "A referência mais completa sobre JavaScript, cobrindo desde o básico até conceitos avançados.",
-        image: "./modules/img/JS o guia definitivo.jpg",
+        image: "../Assets/img/JS o guia definitivo.jpg",
         rating: "4.7/5"
     },
     {
@@ -51,7 +51,7 @@ const books = [
         author: "Isaac Asimov",
         category: "ficção",
         description: "Uma épica de ficção científica que segue a queda e reconstrução de uma galáxia inteira.",
-        image: "./modules/img/Fundação.jpg",
+        image: "../Assets/img/Fundação.jpg",
         rating: "4.8/5"
     },
     {
@@ -60,7 +60,7 @@ const books = [
         author: "Yuval Noah Harari",
         category: "história",
         description: "Uma perspectiva inovadora sobre como a humanidade evoluiu de primatas para criar civilizações complexas.",
-        image: "./modules/img/A história da humanidade_.jpg",
+        image: "../Assets/img/A história da humanidade_.jpg",
         rating: "4.6/5"
     },
     {
@@ -69,7 +69,7 @@ const books = [
         author: "Wes McKinney",
         category: "técnico",
         description: "Aprenda a usar Python e suas bibliotecas para análise e manipulação de dados em larga escala.",
-        image: "./modules/img/Python para analise.jpg",
+        image: "../Assets/img/Python para analise.jpg",
         rating: "4.5/5"
     },
     {
@@ -78,7 +78,7 @@ const books = [
         author: "J.R.R. Tolkien",
         category: "ficção",
         description: "A sequência épica de O Hobbit, seguindo a jornada de Frodo para destruir o Anel Único.",
-        image: "./modules/img/O senhor dos aneus.jpg",
+        image: "../Assets/img/O senhor dos aneus.jpg",
         rating: "4.9/5"
     },
     {
@@ -87,7 +87,7 @@ const books = [
         author: "Gang of Four",
         category: "técnico",
         description: "Os padrões de design fundamentais que todo desenvolvedor deve conhecer para escrever código melhor.",
-        image: "./modules/img/Design Patterns.jpg",
+        image: "../Assets/img/Design patterns.jpg",
         rating: "4.6/5"
     },
     {
@@ -96,7 +96,7 @@ const books = [
         author: "Frank Herbert",
         category: "ficção",
         description: "Uma obra-prima de ficção científica que explora política, religião e ecologia em um universo distante.",
-        image: "./modules/img/Duna.jpg",
+        image: "../Assets/img/Duna.jpg",
         rating: "4.7/5"
     },
     {
@@ -105,7 +105,7 @@ const books = [
         author: "Edward Gibbon",
         category: "história",
         description: "Uma análise clássica sobre os fatores que levaram ao colapso do Império Romano Ocidental.",
-        image: "./modules/img/a queda do imperio romano.jpg",
+        image: "../Assets/img/a queda do imperio romano.jpg",
         rating: "4.4/5"
     }
 ];
