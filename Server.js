@@ -88,25 +88,35 @@ const data = {
 }
 
 
-updtfiles(filePath, data, fileEncoding);
+// updtfiles(filePath, data, fileEncoding);
 
 
+
+//imports do express para poder manipular os arquivos e rotas
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+
+//rota da tela de login, para acessar a página de login
 app.get('/login', (req, res) => {
     res.sendFile(join(__dirname, 'Front', 'src', 'login.html'));
 });
 updtfiles(filePath, data, fileEncoding);
 
-
+//rota da tela de cadastro, para acessar a página de cadastro
 app.get('/cadastro', (req, res) => {
     res.sendFile(join(__dirname, 'Front', 'src', 'cadastro.html'));
 });
 
+
+// essa rota é para testar a leitura do arquivo json
+
+app.get('/livros', (req, res) => {
+    res.sendFile(join(__dirname, 'livros.json'));
+});
 
 
 
