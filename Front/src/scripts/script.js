@@ -110,6 +110,11 @@ const books = [
     }
 ];
 
+//transformando o array de livros em JSON para facilitar a manipulação dos dados no futuro, quando for necessário integrar com o banco de dados.
+const jsonData = JSON.stringify(books);
+// console.log(jsonData);
+
+
 let currentFilter = 'todos';
 let filteredBooks = [...books];
 
