@@ -25,12 +25,6 @@ export async function connectDB() {
 
 
 
-
-
-
-
-
-
 const app = express();  
 app.use(express.json());
 const PORT = 3000;
@@ -42,9 +36,6 @@ app.get('/users', (req, res) => {
     res.send('oK, DEU CERTO');
 
 });
-
-
-
 
 
 app.get('/books', (req, res) => {

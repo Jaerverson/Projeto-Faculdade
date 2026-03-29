@@ -330,7 +330,7 @@ body {
     animation: fadeIn 0.5s ease-out;
 }
 
-/* Scrollbar customizado */
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -346,4 +346,70 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--neon-magenta);
+}
+
+/* LOGIN / CADASTRO  */
+
+.login-box {
+    padding: 30px;
+}
+
+.login-title {
+    color: var(--neon-cyan);
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px rgba(0, 217, 255, 0.3);
+}
+
+.login-subtitle {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.login-form .search-input {
+    margin-bottom: 15px;
+}
+
+.login-remember {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.btn-full {
+    width: 100%;
+}
+
+.login-divider {
+    text-align: center;
+    margin: 20px 0;
+    color: var(--text-muted);
+}
+
+.login-social {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.login-footer {
+    text-align: center;
+    font-size: 14px;
+}
+
+.login-footer a {
+    color: var(--neon-cyan);
+    text-decoration: none;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    background-color: #1a1f3a;
+    color: #a0a0a0;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    border-top: 1px solid #333;
 }
