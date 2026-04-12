@@ -1,36 +1,14 @@
-
-
 import express from 'express';
 import sql from 'mssql';
 import fs from 'fs';
 
-const config = {
-    user: 'livros',
-    password: 'senha123',
-    server: 'localhost',
-    database: 'bancoDeLivros',
-    options: {
-        encrypt: false, // true se for Azure
-        trustServerCertificate: true
-    }
-};
-
-
-//tentativa de conexão com o banco de dados, não consegui fazer funcionar, mas deixei a função pronta para quando conseguir resolver o problema
-export async function connectDB() {
-    try {
-        await sql.connect(config);
-        console.log('Conectado ao SQL Server');
-    } catch (err) {
-        console.error('Erro ao conectar:', err);
-    }
-}
 
 //aprendendo a usar o express, criei um servidor básico.
-
 const app = express();  
-app.use(express.json());
 const PORT = 3000;
+
+app.use(express.json());
+
 
 app.use(express.static('Front/src'));
 
@@ -40,90 +18,65 @@ app.get('/users', (req, res) => {
 
 });
 
-// Utilizando biblioteca fs para ler o arquivo json
-
-//Sobrescrever
-// const data ={
-//     id : 50,
-//     name: 'Livro Exemplo',
-//     author: 'Autor Exemplo'
-// }
-
-// fs.writeFile('livros.json', JSON.stringify(data, null, 2), 'utf8', (err, result) => {      
-//     if (err) {
-//         console.error('Erro ao escrever no arquivo:', err);
-//         return;
-//     }
-//     console.log('Sobrescrito atualizado com sucesso!');
-
-// });
-
-//ler/atualizar
+app.get("/livros/:id", (req, res) => {
+  const index = buscaLivro(req.params.id);
+  if (index === -1) {
+    res.status(404).send("Livro não encontrado");
+  } else {
+    res.status(200).json(livros[index]);
+  }
+});
 
 
+app.post('/livros', (req, res) => {
+  const { title, author } = req.body;
 
+  // validação básica
+  if (!title || !author) {
+    return res.status(400).json({
+      erro: "Title e author são obrigatórios"
+    });
+  }
 
-//atualiza arquivo json, utilizando a função de leitura e escrita do fs, para ler o arquivo, transformar em objeto, atualizar os dados e depois escrever novamente no arquivo.
+  // simulando ID automático
+  const novoLivro = {
+    id: Date.now(),
+    title,
+    author
+  };
 
-const updtfiles = (filePath,updateData, encoding = 'utf8') => {
+  books.push(novoLivro);
 
-const dataString = fs.readFileSync(filePath, encoding);
-const dataObject = JSON.parse(dataString);
-const newDataObject = { ...dataObject, ...updateData };
-const newDataString = JSON.stringify(newDataObject, null, 2);
-fs.writeFileSync(filePath, newDataString, encoding);
+  res.status(201).json({
+    mensagem: "Livro adicionado com sucesso",
+    livro: novoLivro
+  });
+});
 
+app.put("/livros/:id", (req, res) => {
+  const index = buscaLivro(req.params.id);
+  if (index === -1) {
+    res.status(404).send("Livro não encontrado para atualizar");
+  } else {
+    livros[index].titulo = req.body.titulo;
+    livros[index].autor = req.body.autor;
+    res.status(200).json(livros[index]);
+  }
+});
 
-};
+app.delete("/livros/:id", (req, res) => {
+  const index = buscaLivro(req.params.id);
+  if (index === -1) {
+    res.status(404).send("Livro não encontrado para remover");
+  } else {
+    livros.splice(index, 1);
+    res.status(200).send("Livro removido com sucesso");
+  }
+});
 
-
-const filePath = 'livros.json';
-const fileEncoding = 'utf8';
-
-
-const data = {
-    id: 50,
-    title: "Novo livro",
-    status: "Disponível"
+function buscaLivro(id) {
+  return livros.findIndex(livro => livro.id == id);
 }
-
-
-// updtfiles(filePath, data, fileEncoding);
-
-
-
-//imports do express para poder manipular os arquivos e rotas
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-
-//rota da tela de login, para acessar a página de login
-app.get('/login', (req, res) => {
-    res.sendFile(join(__dirname, 'Front', 'src', 'login.html'));
-});
-updtfiles(filePath, data, fileEncoding);
-
-//rota da tela de cadastro, para acessar a página de cadastro
-app.get('/cadastro', (req, res) => {
-    res.sendFile(join(__dirname, 'Front', 'src', 'cadastro.html'));
-});
-
-
-// essa rota é para testar a leitura do arquivo json
-
-app.get('/livros', (req, res) => {
-    res.sendFile(join(__dirname, 'livros.json'));
-});
-
-
-
-
-
-
-
 
 
 
