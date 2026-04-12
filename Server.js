@@ -30,6 +30,11 @@ app.get("/livros", (req, res) => {
 });
 
 // Rota para buscar um livro por id
+
+function buscaLivro(id) {
+  return livros.findIndex(livro => livro.id == id);
+}
+
 app.get("/livros/:id", (req, res) => {
   const index = buscaLivro(req.params.id);
   if (index === -1) {
@@ -86,13 +91,9 @@ app.delete("/livros/:id", (req, res) => {
     res.status(404).json("Livro não encontrado para remover");
   } else {
     livros.splice(index, 1);
-    res.status(200).send("Livro removido com sucesso");
+    res.status(200).json("Livro removido com sucesso");
   }
 });
-
-function buscaLivro(id) {
-  return livros.findIndex(livro => livro.id == id);
-}
 
 
 
