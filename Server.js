@@ -7,9 +7,11 @@ import bcrypt from 'bcryptjs';
 import Usuario from './models/Usuario.js';
 import jwt from 'jsonwebtoken';
 import auth from './middlewares/auth.js';
+import cors from 'cors';
 
 //aprendendo a usar o express, criei um servidor básico.
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
@@ -24,7 +26,7 @@ sequelize.sync()
   .catch(err => {
     console.error(err);
   });
-  
+
 // Rota de teste para verificar se o servidor está funcionando
 app.get('/users', (req, res) => {
 
