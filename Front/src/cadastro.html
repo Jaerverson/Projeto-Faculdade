@@ -31,6 +31,7 @@
 
             <input
               type="text"
+              id="nome"
               placeholder="Nome completo"
               class="search-input"
               required
@@ -38,6 +39,7 @@
 
             <input
               type="email"
+              id="email"
               placeholder="seu@email.com"
               class="search-input"
               required
@@ -45,6 +47,7 @@
 
             <input
               type="password"
+              id="senha"
               placeholder="Senha (mínimo 6 caracteres)"
               class="search-input"
               required
@@ -52,6 +55,7 @@
 
             <input
               type="password"
+              id="confirmarSenha"
               placeholder="Confirmar senha"
               class="search-input"
               required
@@ -87,4 +91,59 @@
     </footer>
 
   </body>
+   <script>
+   console.log('Script carregado');
+
+   const form = document.getElementById('cadastroForm');
+
+   form.addEventListener('submit', async (e) => {
+     e.preventDefault();
+
+     try {
+
+       const nome = document.getElementById('nome').value;
+       const email = document.getElementById('email').value;
+       const senha = document.getElementById('senha').value;
+       const confirmarSenha = document.getElementById('confirmarSenha').value;
+
+       if (senha !== confirmarSenha) {
+          alert('As senhas não coincidem');
+         return;
+      }
+
+       const response = await fetch('http://localhost:3000/register', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+           nome,
+           email,
+           senha
+         })
+       });
+
+       const data = await response.json();
+
+       console.log(data);
+
+       if (!response.ok) {
+         alert(data.erro);
+         return;
+       }
+
+       alert('Cadastro realizado com sucesso!');
+       window.location.href = 'login.html';
+
+     } catch (erro) {
+       console.error(erro);
+       alert('Erro ao conectar com o servidor');
+     }
+  });
+</script>
+
+
+
+
+
 </html>

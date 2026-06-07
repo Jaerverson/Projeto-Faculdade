@@ -1,13 +1,17 @@
 import express from 'express';
-import sql from 'mssql';
-import fs from 'fs';
-
+import sequelize from './database/db.js';
+import Livro from './models/Livro.js';
+import dotenv from 'dotenv';
+dotenv.config();
+import bcrypt from 'bcryptjs';
+import Usuario from './models/Usuario.js';
+import jwt from 'jsonwebtoken';
+import auth from './middlewares/auth.js';
 
 //aprendendo a usar o express, criei um servidor básico.
 const app = express();
 app.use(express.json());
 
-const livros = JSON.parse(fs.readFileSync('livros.json', 'utf-8'));
 const PORT = 3000;
 
 
@@ -16,86 +20,227 @@ app.use(express.static('Front/src'));
 // Rota de teste para verificar se o servidor está funcionando
 app.get('/users', (req, res) => {
 
-    res.send('oK, DEU CERTO');
+    res.json('oK, DEU CERTO');
 
 });
+
+//Rota para cadastro
+app.post('/register', async (req, res) => {
+  try {
+
+    const { nome, email, senha } = req.body;
+
+    const senhaHash = await bcrypt.hash(senha, 10);
+
+    const usuario = await Usuario.create({
+      nome,
+      email,
+      senha: senhaHash
+    });
+
+    res.status(201).json(usuario);
+
+  } catch (erro) {
+
+    console.log("ERRO COMPLETO:");
+    console.log(erro);
+
+    res.status(500).json({
+      erro: erro.message,
+      detalhe: erro.original?.sqlMessage
+    });
+
+  }
+});
+
+//Rota para login
+
+app.post('/login', async (req, res) => {
+
+  const { email, senha } = req.body;
+
+  const usuario = await Usuario.findOne({
+    where: { email }
+  });
+
+  if (!usuario) {
+    return res.status(401).json({
+      erro: 'Usuário não encontrado'
+    });
+  }
+
+  const senhaValida = await bcrypt.compare(
+    senha,
+    usuario.senha
+  );
+
+  if (!senhaValida) {
+    return res.status(401).json({
+      erro: 'Senha inválida'
+    });
+  }
+
+  const token = jwt.sign(
+    { id: usuario.id },
+    process.env.JWT_SECRET,
+    { expiresIn: '1h' }
+  );
+
+  res.json({ token });
+});
+
+
+
 
 // Rotas para CRUD de livros
 
-// Rota para exibir a lista de livros
-app.get("/livros", (req, res) => {
- 
-  res.status(200).json(livros);
-  
+app.get('/livros', auth, async (req, res) => {
+
+  try {
+
+    const { categoria } = req.query;
+
+    let livros;
+
+    if (categoria) {
+      livros = await Livro.findAll({
+        where: { categoria }
+      });
+    } else {
+      livros = await Livro.findAll();
+    }
+
+    res.json(livros);
+
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).json({ erro: 'Erro ao buscar livros' });
+  }
+
 });
 
+
 // Rota para buscar um livro por id
+app.get('/livros/:id', auth, async (req, res) => {
+  try {
 
-function buscaLivro(id) {
-  return livros.findIndex(livro => livro.id == id);
-}
+    const livro = await Livro.findByPk(req.params.id);
 
-app.get("/livros/:id", (req, res) => {
-  const index = buscaLivro(req.params.id);
-  if (index === -1) {
-    res.status(404).json("Livro não encontrado");
-  } else {
-    res.status(200).json(livros[index]);
+    if (!livro) {
+      return res.status(404).json({
+        erro: 'Livro não encontrado'
+      });
+    }
+
+    res.json(livro);
+
+  } catch (erro) {
+
+    res.status(500).json({
+      erro: erro.message
+    });
+
   }
 });
 
 // Rota para criar um novo livro
-app.post('/livros', (req, res) => {
-  const { title, author } = req.body;
+app.post('/livros', auth, async (req, res) => {
+  try {
 
-  // validação básica
-  if (!title || !author) {
-    return res.status(400).json({
-      erro: "Title e author são obrigatórios"
+    const {
+      titulo,
+      ano_publicacao,
+      quantidade,
+      autor_id,
+      capa,
+      categoria} = req.body;
+
+    if (!titulo) {
+      return res.status(400).json({
+        erro: 'Título é obrigatório'
+      });
+    }
+
+    const livro = await Livro.create({
+     titulo,
+     ano_publicacao,
+     quantidade,
+     autor_id,
+     capa,
+     categoria
     });
+
+    res.status(201).json(livro);
+
+  } catch (erro) {
+
+    res.status(500).json({
+      erro: erro.message
+    });
+
   }
-
-  // simulando ID automático
-  const novoLivro = {
-    id: livros.length > 0 
-    ? livros[livros.length - 1].id + 1 
-    : 1,
-   title,
-   author
-  };
-
-  livros.push(novoLivro);
-
-  res.status(201).json({
-    mensagem: "Livro adicionado com sucesso",
-    livro: novoLivro
-  });
 });
 
+
 // Rota para atualizar um livro existente
-app.put("/livros/:id", (req, res) => {
-  const index = buscaLivro(req.params.id);
-  if (index === -1) {
-    return res.status(404).json({erro:"Livro não encontrado para atualizar"});
-  } else {
-    livros[index].title = req.body.title;
-    livros[index].author = req.body.author;
-    res.status(200).json(livros[index]);
+app.put('/livros/:id', auth, async (req, res) => {
+  try {
+
+    const livro = await Livro.findByPk(req.params.id);
+
+    if (!livro) {
+      return res.status(404).json({
+        erro: 'Livro não encontrado'
+      });
+    }
+
+    await livro.update(req.body);
+
+    res.json(livro);
+
+  } catch (erro) {
+
+    res.status(500).json({
+      erro: erro.message
+    });
+
   }
 });
 
 // Rota para deletar um livro
-app.delete("/livros/:id", (req, res) => {
-  const index = buscaLivro(req.params.id);
-  if (index === -1) {
-    res.status(404).json("Livro não encontrado para remover");
-  } else {
-    livros.splice(index, 1);
-    res.status(200).json("Livro removido com sucesso");
+app.delete('/livros/:id', auth, async (req, res) => {
+  try {
+
+    const livro = await Livro.findByPk(req.params.id);
+
+    if (!livro) {
+      return res.status(404).json({
+        erro: 'Livro não encontrado'
+      });
+    }
+
+    await livro.destroy();
+
+    res.json({
+      mensagem: 'Livro removido com sucesso'
+    });
+
+  } catch (erro) {
+
+    res.status(500).json({
+      erro: erro.message
+    });
+
   }
 });
 
-
+sequelize.authenticate()
+  .then(() => {
+    console.log('Conectado ao MySQL!');
+  })
+  .catch((erro) => {
+    console.error('Erro ao conectar:', erro);
+  });
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
