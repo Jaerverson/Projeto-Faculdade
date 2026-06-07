@@ -17,6 +17,14 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static('Front/src'));
 
+sequelize.sync()
+  .then(() => {
+    console.log('Tabelas criadas/sincronizadas');
+  })
+  .catch(err => {
+    console.error(err);
+  });
+  
 // Rota de teste para verificar se o servidor está funcionando
 app.get('/users', (req, res) => {
 
